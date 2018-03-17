@@ -33,8 +33,7 @@ nav{
 	overflow: auto;
 	width: 100%;
 	z-index: 10;
-    transition: left 1s;
-    transition: width 1s;
+    transition: left 1s, width 1s, background-color .5s;
 }
 nav .nav-space{
 	box-sizing: border-box;
