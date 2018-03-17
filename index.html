@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="huy cam">
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link href="css/fa-svg-with-js.css" rel="stylesheet">
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/fontawesome-all.min.js"></script>
+	<link rel="stylesheet" href="main.css">
+	<title>Porfolio</title>
+</head>
+<body class="">
+    <div id="side-menu">
+       <a href="javascript:void(0)" id="close-btn" >&times;</a>
+       <a href="#">About</a>
+       <a href="#">Services</a>
+       <a href="#">Clients</a>
+       <a href="#">Contact</a>
+    </div>
+   
+    <div id="main">
+        <nav>
+            <div class="brand nav-space">
+                <a class="main-a" id="edit" href="javascript:void(0">Linh Cam</a>
+            </div>
+            <div class="navigations nav-space">
+                <a class="main-a" href="#">HOME</a>
+                <a class="main-a" href="#work">WORK</a>
+                <a class="main-a" href="#client">CLIENT</a>
+                <a class="main-a" href="#">CONTACT</a>
+            </div>
+        </nav>
+
+        <div class="container-fluid main-page">
+            <div class="main">
+                <img src="image/notebook.png" class="bounceIn small-ico">
+                <h1>Some Text Will Be Right Here And Not</h1>
+                <p class="subtext">Some text will be right here too for the sake of content and beautiful design Some Text Will Be Right Here And Not Some</p>
+                <a  class="btn btn-round main-a" href="#work">My Work</a>
+            </div>
+        </div>
+
+    <!--Work-->
+        <div class="container-fluid" id="work">
+            <img src="image/notebook.png" class="small-ico">
+            <h1>Some Big Words Right Here</h1>
+            <p class="subtext">Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore.</p>
+            <div class="categories-holder">
+                <div class="collections-holder">
+                    <a href="#" class="active">Collection 1</a>
+                    <a href="#">Collection 2</a>
+                    <a href="#">Collection 3</a>
+                    <a href="#">Collection 4</a>
+                </div>
+            </div>
+            <div class="pictures">
+                <div class="image-holder"><img src="image/collection1.jpg"></div>
+                <div class="image-holder"><img src="image/collection2.jpg"></div>
+                <div class="image-holder"><img src="image/collection3.jpg"></div>
+                <div class="image-holder"><img src="image/collection4.jpg"></div>
+                <div class="image-holder"><img src="image/collection5.jpg"></div>
+            </div>
+        </div>
+    <!--Client, slide show-->
+        <div class="container-fluid slideShow" id="client">
+            <div class="slide fadeIn">
+                <img src="image/client.png" class="small-ico">
+                <p class="subtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum eget nulla molestie ultrices. Ut varius erat massa, sed imperdiet urna eleifend a. Praesent pharetra justo non risus interdum, ut consectetur velit ornare. Etiam ornare blandit orci nec facilisis. Donec sem orci, interdum eget mattis non, porttitor vel lacus. Donec erat urna, ornare sit amet auctor eget, accumsan eget eros.</p>
+                <img src="image/david-luis.jpg" class="avatar">
+                <h4>David Luis</h4>
+                <h5>Dallas</h5>
+            </div>
+
+            <div class="slide fadeIn">
+                <img src="image/client.png" class="small-ico">
+                <p class="subtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum eget nulla molestie ultrices. Ut varius erat massa, sed imperdiet urna eleifend a. Praesent pharetra justo non risus interdum, ut consectetur velit ornare. Etiam ornare blandit orci nec facilisis. Donec sem orci, interdum eget mattis non, porttitor vel lacus. Donec erat urna, ornare sit amet auctor eget, accumsan eget eros.</p>
+                <img src="image/sergey-brin.jpg" class="avatar">
+                <h4>Sergey Brin</h4>
+                <h5>California</h5>
+            </div>
+
+            <div class="slide fadeIn">
+                <img src="image/client.png" class="small-ico">
+                <p class="subtext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum eget nulla molestie ultrices. Ut varius erat massa, sed imperdiet urna eleifend a. Praesent pharetra justo non risus interdum, ut consectetur velit ornare. Etiam ornare blandit orci nec facilisis. Donec sem orci, interdum eget mattis non, porttitor vel lacus. Donec erat urna, ornare sit amet auctor eget, accumsan eget eros.</p>
+                <img src="image/zuckerberg.jpg" class="avatar">
+                <h4>Mark Zuckerberg</h4>
+                <h5>California</h5>
+            </div>
+
+            <!-- The dots/circles -->
+            <div style="text-align:center">
+              <span class="dot" index='0'></span>
+              <span class="dot" index='1'></span>
+              <span class="dot" index='2'></span>
+            </div>
+        </div>
+
+
+    <!--Contact-->
+        <div class="container-fluid" id="quetion">
+
+              <div class="row">
+                 <div class="col-md-6 col-md-offset-3">
+                    <img src="image/client.png" class="small-ico">
+                    <h1 class="text-center">Have Question?</h1>
+                    <p class="text-center  ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum eget nulla molestie ultrices. Ut varius erat massa, sed imperdiet urna eleifend a</p>
+                 </div>
+               </div>
+
+            <form action="#" method="post" role="form" class="form-horizontal">
+
+                <div class="row">
+                <div class="col-md-4">
+                    <p class="text-holder">
+                      <label for="name">Your Name:</label>
+                       <input type="text" placeholder="Your Name" id="name" class="form-control">
+                    </p>
+                </div> 
+                <div class="col-md-4">
+                    <p class="text-holder">
+                      <label for="email">Your Email:</label>
+                       <input type="email" placeholder="Your Email" id="email" class="form-control">
+                    </p>
+                </div> 
+                <div class="col-md-4">
+                    <p class="text-holder">
+                      <label for="subject">Your Subject:</label>
+                       <input type="text" placeholder="Your Subject" id="subject" class="form-control">
+                    </p>
+                </div> 
+                </div>
+
+               <div class="row">
+                <div class="col-md-12">
+                    <textarea class="form-control" name="content" id="" placeholder="Your Content"></textarea> 
+                </div>
+               </div>
+                <button class="btn btn-primary submit btn-custom">Send message</button>
+
+            </form>
+
+        </div>
+
+        <hr />
+        <footer class="container-fluid">
+          <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                  <div class="social">
+                     <div class="soc-container"><a href="#"><i id="fb" style="" class="fab fa-facebook-square"></i></a></div>
+                     <span class="soc-container"><a href="#"><i id="twiter" class="fab fa-twitter-square"></i></a></span>
+                     <span class="soc-container"><a href="#"><i id="linked-in" class="fab fa-linkedin"></i></a></span>
+                  </div>
+              </div>
+            </div>
+           <div class="row footer-contact">
+                    <div class="col-md-6 col-md-offset-3">
+                    <p class="text-center">Contact Address: 123 Main Street</p>
+                    <p class="text-center">Phone number: 817-999-9999</p>
+                    <p class="text-center">All right Reserves &copy; Huy Cam</p>
+                    </div>
+            </div>
+            
+        </footer>
+    </div>
+	<script src="slideShow.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>

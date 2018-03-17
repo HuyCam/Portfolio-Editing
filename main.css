@@ -1,0 +1,255 @@
+body{
+	padding: 0;
+    overflow-x: hidden;
+}
+/*-------Side menu off-canvas-------*/
+#side-menu{
+    position: fixed;
+    height: 100%;
+    width: 0;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    background-color: #111;
+    padding-top: 60px;
+    transition: width 1s;
+    z-index: 1;
+}
+#close-btn{
+    font-size: 24px;
+}
+#main {
+    margin: 0;
+    transition: margin-left 1s;
+}
+/*End side menu*/
+/*Navigation*/
+nav{
+	border-bottom: 1px solid white;
+	color: white;
+	left: 0;
+	position: fixed;
+	top: 0;
+	overflow: auto;
+	width: 100%;
+	z-index: 10;
+    transition: left 1s;
+    transition: width 1s;
+}
+nav .nav-space{
+	box-sizing: border-box;
+	padding: 1em;
+	height: 70px;
+}
+nav div.brand{
+	font-size: 22px;
+	float: left;
+	margin: 0 0 0 1em;
+}
+nav .navigations a{
+	margin: 0.8em 2.5em 0.8em 0.5em;
+}
+nav a{
+	color: white;
+	display: inline-block;
+	font-weight: bold;
+}
+.main-a:hover{
+	text-decoration: none;
+	color: rgb(238, 130, 147);
+	-webkit-transition: color 0.5s; /* Safari */
+    transition: color 0.5s;
+}
+.main-a:focus{
+	text-decoration: none;
+	color: rgb(238, 130, 147);
+}
+nav div.navigations{
+	margin: 0 7em 0 0;
+	float: right;
+}
+
+/*Design Jumbotron*/
+div.main-page{
+	background-image: url('image/background3.jpg');
+	background-size: cover;
+	color: white;
+	height: 607px;
+}
+div .main{
+	margin: 12em auto 0 auto;
+	width: 800px;
+}
+.small-ico{
+	display: block;
+	margin: auto;
+	width: 40px;
+}
+div .main h1{
+	margin-top: 1em;
+	font-size: 42px;
+	font-weight: bold;
+	text-align: center;
+}
+.subtext{
+	color: #b5908d;
+	margin: auto;
+	font-size: 20px;
+	text-align: center;
+	width: 80%;
+}
+div .main a{
+	border-radius: 25px 25px 25px 25px;
+	border: 1px solid white;
+	color: white;
+	display: block;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 1.5em auto 0 auto;
+	width: 150px;
+}
+div .main a:hover{
+	color: rgb(238, 130, 147);
+	background-color: rgb(244, 244, 244);
+	-webkit-transition: background-color 1s, color 1s; /* Safari */
+    transition: background-color 1s, color 1s;
+}
+div .main a-:focus{
+	color: rgb(238, 130, 147);
+}
+
+/*-------------work-----------------*/
+#work{
+	padding: 5em 0 0 0;
+}
+#work h1{
+	width: 500px;
+	margin: 2em auto 0em auto;
+	text-align: center;
+}
+#work .subtext{
+	margin-top: 0.5em;
+	width: 600px;
+}
+#work .categories-holder{
+	width: 500px;
+	margin: 1.5em auto 0 auto;
+}
+#work .categories-holder .collections-holder{
+	width: 90%;
+	margin: 0 auto 0 auto;
+}
+#work .categories-holder .collections-holder a{
+	display: inline-block;
+	color: black;
+	border: 1px solid black;
+	padding: 0.5em;
+	text-decoration: none;
+	text-align: center;
+	margin: 0 0.25em 0 0.25em;
+	width: 22%;
+}
+#work .categories-holder .collections-holder a:hover{
+	background-color: black;
+	color: white;
+	text-decoration: none;
+	-webkit-transition: background-color 1s, color 1s; /* Safari */
+    transition: background-color 1s, color 1s;
+}
+#work .categories-holder .collections-holder .active{
+	background-color: black;
+	color: white;
+}
+
+#work .pictures{
+	margin: 3em 0 0 0;
+}
+#work .pictures img{
+	width: 20%;
+	float: left;
+}
+
+/*------------------------- Slide Show control and design----------------------------------------------*/
+.slideShow {box-sizing:border-box}
+/* Slideshow container */
+.slideShow{
+  max-width: 1000px;
+  position: relative;
+  margin: 6.5em auto 0 auto;
+}
+
+.slideShow .avatar{
+	display: block;
+	margin: 3em auto 0 auto;
+	border-radius: 50%;
+	border: 2px solid grey;
+	width: 100px;
+}
+.slide p{
+	margin: 1.5em auto 0 auto;
+}
+.slideShow h4{
+	text-align: center;
+	font-weight: bold;
+}
+.slideShow h5{
+	text-align: center;
+}
+
+/* Hide the images by default */
+.slide {
+    margin: auto;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor:pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/*Question*/
+#question .btn {
+    margin-top: 15px;
+}
+
+/* footer */
+.social {
+    text-align: center;
+}
+.social .soc-container{
+    display: inline-block;
+    padding: 0.5em;
+}
+#fb, #linked-in, #twiter {
+
+    font-size: 42px;
+    transition: font-size 2s;
+}
+footer #fb:hover {
+    color: cornflowerblue;
+    font-size: 68px;
+    transition: font-size 2s;
+}
+footer #linked-in:hover {
+    color:darkblue;
+    font-size: 68px;
+    transition: font-size 2s;
+}
+footer #twiter:hover {
+    color: coral;
+    font-size: 68px;
+    transition: font-size 2s;
+}
+footer .footer-contact {
+    text-align: center;
+}
