@@ -1,15 +1,26 @@
-var data = (function() {
+var pageData = (function() {
     var template = {
       editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>'  
     };
     
     return {
         getTemplate: function() {
-            return template;
+            return template.editContent;
         }
     };
 })();
-var controller = (function () {
+
+var UICtrl = (function() {
+    return {
+        addEditBox: function(html) {
+          $('body').prepend(html);
+        },
+        removeElement: function(element) {
+            $(element).remove();
+        }
+    };
+})();
+var controller = (function (data, UI) {
     var interValCtr;
   // Handle all the class names I want to control
   var DOMString = {
@@ -20,14 +31,35 @@ var controller = (function () {
     edit: '#edit',
     closeBtn: '#close-btn',
     navBar: '#navbar',
-    navigations: '.navigations'
+    navigations: '.navigations',
+    editBtn: '#edit-btn',
+    editText: '#edit-text',
+    editContainer:  '#edit-container'
   };
-  
-  function editText(e) {
+  function editTextCtr(e) {
       ele = e.target;
       // Check if element content text
       if (ele.textContent && (ele.nodeName == 'H1' || ele.nodeName == 'H2' || ele.nodeName == 'H3' || ele.nodeName == 'H4' || ele.nodeName == 'H5' || ele.nodeName == 'P')) {
-          console.log('Have text content', e.target);
+          var content;
+          // Get edit box template
+          var template = data.getTemplate();
+          console.log(template);
+          // Add edit box template to UI
+          UI.addEditBox(template);
+          $(DOMString.editText)[0].focus();
+          // Add event to submit change
+          $(DOMString.editBtn).on('click', function() {
+              content = $(DOMString.editText).val();
+              // Remove event
+              $(DOMString.editBtn).off('click');
+              // remove edit box
+              UI.removeElement(DOMString.editContainer);
+              // Add that text value to element target
+              ele.textContent = content;
+          });
+          
+          
+          
       }
   }
   var expandMenu = function() {
@@ -47,7 +79,7 @@ var controller = (function () {
         // Stop interval
         stopInterval();
         // Add event to edit text content
-        $('body').on('dblclick', editText);
+        $('#main').on('dblclick', editTextCtr);
     };
     
     var closeMenu = function() {
@@ -64,7 +96,7 @@ var controller = (function () {
         // start interval
         startInterval();
         // Remove event dblclick to edit text content
-        $('body').off('dblclick');
+        $('#main').off('dblclick');
     };
     
     function navigationCtrl() {
@@ -131,6 +163,6 @@ var controller = (function () {
       startInterval();
     }
   };
-})();
+})(pageData, UICtrl);
 
 controller.init();
