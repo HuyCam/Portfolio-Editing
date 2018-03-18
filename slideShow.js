@@ -1,3 +1,14 @@
+var data = (function() {
+    var template = {
+      editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>'  
+    };
+    
+    return {
+        getTemplate: function() {
+            return template;
+        }
+    };
+})();
 var controller = (function () {
     var interValCtr;
   // Handle all the class names I want to control
@@ -10,8 +21,15 @@ var controller = (function () {
     closeBtn: '#close-btn',
     navBar: '#navbar',
     navigations: '.navigations'
-  }
+  };
   
+  function editText(e) {
+      ele = e.target;
+      // Check if element content text
+      if (ele.textContent && (ele.nodeName == 'H1' || ele.nodeName == 'H2' || ele.nodeName == 'H3' || ele.nodeName == 'H4' || ele.nodeName == 'H5' || ele.nodeName == 'P')) {
+          console.log('Have text content', e.target);
+      }
+  }
   var expandMenu = function() {
         let main, nav, menuWidth, body, mainPage; 
         main= document.querySelector(DOMString.main);
@@ -19,18 +37,17 @@ var controller = (function () {
         mainPage = document.querySelector('.main-page');
         body = document.querySelector('body');
         menuWidth = (body.offsetWidth/100) * 20;
-
         // make menu width to 20% of body
         document.querySelector(DOMString.sideMenu).style.width = '20%';
         main.style.marginLeft = menuWidth + 'px';
-
         // make navigation bar as the same width as main page and
         // also indent as the same space as main page
         nav.style.width = (body.offsetWidth - 250) + 'px';
         nav.style.left = menuWidth + 'px';
-      
         // Stop interval
         stopInterval();
+        // Add event to edit text content
+        $('body').on('dblclick', editText);
     };
     
     var closeMenu = function() {
@@ -46,6 +63,8 @@ var controller = (function () {
         nav.style.width = '100%';
         // start interval
         startInterval();
+        // Remove event dblclick to edit text content
+        $('body').off('dblclick');
     };
     
     function navigationCtrl() {
@@ -72,7 +91,6 @@ var controller = (function () {
         // navigation bar click
         $(DOMString.main + ' ' + DOMString.navigations).on('click', function(e) {
             let href = e.target.getAttribute('href');
-            console.log(href);
             $('html, body').animate({
             scrollTop: $(href).offset().top
             }, 500);
@@ -114,4 +132,5 @@ var controller = (function () {
     }
   };
 })();
+
 controller.init();
