@@ -21,7 +21,6 @@ var UICtrl = (function() {
     };
 })();
 var controller = (function (data, UI) {
-    var interValCtr;
   // Handle all the class names I want to control
   var DOMString = {
     dot: '.dot',
@@ -36,6 +35,15 @@ var controller = (function (data, UI) {
     editText: '#edit-text',
     editContainer:  '#edit-container'
   };
+    function updateText() {
+        content = $(DOMString.editText).val();
+      // Remove event
+      $(DOMString.editBtn).off('click');
+      // remove edit box
+      UI.removeElement(DOMString.editContainer);
+      // Add that text value to element target
+      ele.textContent = content;
+    }
   function editTextCtr(e) {
       ele = e.target;
       // Check if element content text
@@ -48,16 +56,13 @@ var controller = (function (data, UI) {
           UI.addEditBox(template);
           $(DOMString.editText)[0].focus();
           // Add event to submit change
-          $(DOMString.editBtn).on('click', function() {
-              content = $(DOMString.editText).val();
-              // Remove event
-              $(DOMString.editBtn).off('click');
-              // remove edit box
-              UI.removeElement(DOMString.editContainer);
-              // Add that text value to element target
-              ele.textContent = content;
+          $(DOMString.editBtn).on('click', updateText);
+          $(DOMString.editText).on('keydown', function(e) {
+              var x = e.keyCode;
+              if (x === 13) {
+                  updateText();
+              }
           });
-          
           
           
       }
