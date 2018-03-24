@@ -39,13 +39,23 @@ body{
     top: 0;
     left: 0;
     overflow-x: hidden;
-    background-color: #111;
-    padding-top: 60px;
+    overflow-y: auto;
+    background-color: #ededed;
+    padding-top: 1em;
     transition: width 1s;
     z-index: 5;
+    
 }
 #close-btn{
-    font-size: 24px;
+    float: right;
+    font-size: 48px;
+}
+#close-btn:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+#main-edit img{
+    width: 50%;
 }
 #main {
     margin: 0;
@@ -166,6 +176,9 @@ div .main a-:focus{
 #work .categories-holder .collections-holder{
 	width: 90%;
 	margin: 0 auto 0 auto;
+}
+#work .collection {
+    transition: background-color .7s;
 }
 #work .categories-holder .collections-holder a{
 	display: inline-block;

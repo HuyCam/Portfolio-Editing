@@ -21,6 +21,7 @@ var UICtrl = (function() {
     };
 })();
 var controller = (function (data, UI) {
+    var interValCtr;
   // Handle all the class names I want to control
   var DOMString = {
     dot: '.dot',
@@ -33,7 +34,9 @@ var controller = (function (data, UI) {
     navigations: '.navigations',
     editBtn: '#edit-btn',
     editText: '#edit-text',
-    editContainer:  '#edit-container'
+    editContainer:  '#edit-container',
+    collection: '.collection',
+    pictures: '.pictures'
   };
     function updateText() {
         content = $(DOMString.editText).val();
@@ -63,19 +66,31 @@ var controller = (function (data, UI) {
                   updateText();
               }
           });
-          
-          
       }
   }
+
+    function collectionDisplay(e) {
+        e.preventDefault();
+        let ele = e.target;
+        let collections = $(DOMString.collection);
+        let index = parseInt(ele.getAttribute('number')) - 1;
+        let pic = $(DOMString.pictures + ':eq(' + index + ')');
+        collections.removeClass('active');
+        e.target.classList.toggle('active');
+        $(DOMString.pictures).fadeOut(500);
+        pic.fadeIn(500);
+    }
   var expandMenu = function() {
         let main, nav, menuWidth, body, mainPage; 
         main= document.querySelector(DOMString.main);
         nav = document.querySelector('nav'); 
         mainPage = document.querySelector('.main-page');
         body = document.querySelector('body');
+        sideMenu = document.querySelector(DOMString.sideMenu);
         menuWidth = (body.offsetWidth/100) * 20;
         // make menu width to 20% of body
-        document.querySelector(DOMString.sideMenu).style.width = '20%';
+        sideMenu.style.width = '20%';
+        // change main page width
         main.style.marginLeft = menuWidth + 'px';
         // make navigation bar as the same width as main page and
         // also indent as the same space as main page
@@ -85,14 +100,18 @@ var controller = (function (data, UI) {
         stopInterval();
         // Add event to edit text content
         $('#main').on('dblclick', editTextCtr);
+        sideMenu.style.overflowY = 'hidden';
+        setTimeout(function() {sideMenu.style.overflowY = 'auto'}, 500)
     };
     
     var closeMenu = function() {
         var main, nav;
         main= document.querySelector(DOMString.main);
-        nav = document.querySelector('nav'); 
-        // menu back to 0
-        document.querySelector(DOMString.sideMenu).style.width = 0;
+        nav = document.querySelector('nav');
+        sideMenu = document.querySelector(DOMString.sideMenu);
+        // menu width back to 0
+        sideMenu.style.overflowY = 'hidden';
+        sideMenu.style.width = 0;
         // main margin back to normal
         main.style.marginLeft = 0;
         // navigation width and lef offset back to normal
@@ -102,6 +121,7 @@ var controller = (function (data, UI) {
         startInterval();
         // Remove event dblclick to edit text content
         $('#main').off('dblclick');
+        
     };
     
     function navigationCtrl() {
@@ -119,12 +139,16 @@ var controller = (function (data, UI) {
           var index = $(this).attr('index');
           showSlides(parseInt(index));
         }); 
+        
         // menu
         $(DOMString.edit).on('click', expandMenu);
+        
         // close btn
         $(DOMString.closeBtn).on('click', closeMenu);
-        // window onscroll to change background-color
+        
+        // window onscroll to change background-color on navigation bar
         $(window).on('scroll', navigationCtrl);
+        
         // navigation bar click
         $(DOMString.main + ' ' + DOMString.navigations).on('click', function(e) {
             let href = e.target.getAttribute('href');
@@ -132,6 +156,9 @@ var controller = (function (data, UI) {
             scrollTop: $(href).offset().top
             }, 500);
             });
+        
+        // collection display on respectively name tag
+        $(DOMString.collection).on('click', collectionDisplay);
     })();
     
   // slide show control
@@ -161,11 +188,15 @@ var controller = (function (data, UI) {
     function stopInterval() {
         clearInterval(interValCtr);
     }
-    
+    function hideCollection() {
+        $(DOMString.pictures).hide();
+        $(DOMString.pictures+ ':eq(0)').show();
+    }
   return {
     init: function(){
-      showSlides(0);
-      startInterval();
+        showSlides(0);
+        startInterval();
+        hideCollection();
     }
   };
 })(pageData, UICtrl);
