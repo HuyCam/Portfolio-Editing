@@ -1,0 +1,42 @@
+/*-------Side menu off-canvas-------*/
+.instruction {
+    color: rgb(157, 157, 157);
+    border-top: 2px dashed rgb(157, 157, 157);
+    border-bottom: 2px dashed rgb(157, 157, 157);
+}
+#side-menu{
+    position: fixed;
+    height: 100%;
+    width: 0;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #ededed;
+    padding-top: 1em;
+    transition: width 1s;
+    z-index: 5;
+    
+}
+#background-selector {
+    
+}
+#background-selector img:hover {
+    border: 3px solid rgb(117, 214, 250);
+}
+#close-btn{
+    float: right;
+    font-size: 48px;
+}
+#close-btn:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+#main-edit img{
+    width: 50%;
+}
+#main {
+    margin: 0;
+    transition: margin-left 1s;
+}
+/*End side menu*/

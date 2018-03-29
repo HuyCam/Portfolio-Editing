@@ -7,7 +7,7 @@ body{
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: 12;
     width: 100%;
     height: 100%;
     background-color: rgb(160, 160, 160);
@@ -31,37 +31,7 @@ body{
 #edit-btn {
     float: right;
 }
-/*-------Side menu off-canvas-------*/
-#side-menu{
-    position: fixed;
-    height: 100%;
-    width: 0;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #ededed;
-    padding-top: 1em;
-    transition: width 1s;
-    z-index: 5;
-    
-}
-#close-btn{
-    float: right;
-    font-size: 48px;
-}
-#close-btn:hover {
-    cursor: pointer;
-    text-decoration: none;
-}
-#main-edit img{
-    width: 50%;
-}
-#main {
-    margin: 0;
-    transition: margin-left 1s;
-}
-/*End side menu*/
+
 /*Navigation*/
 nav{
 	border-bottom: 1px solid white;
@@ -109,7 +79,7 @@ nav div.navigations{
 
 /*Design Jumbotron*/
 div.main-page{
-	background-image: url('image/background3.jpg');
+	background-image: url('image/background 1.jpg');
 	background-size: cover;
 	color: white;
 	height: 607px;
@@ -136,15 +106,21 @@ div .main h1{
 	text-align: center;
 	width: 80%;
 }
+div .main .btn-work{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 div .main a{
 	border-radius: 25px 25px 25px 25px;
 	border: 1px solid white;
 	color: white;
-	display: block;
+	display: inline-block;
 	font-size: 20px;
 	font-weight: bold;
 	margin: 1.5em auto 0 auto;
-	width: 150px;
+    vertical-align: middle;
+
 }
 div .main a:hover{
 	color: rgb(238, 130, 147);
@@ -201,8 +177,12 @@ div .main a-:focus{
 	background-color: black;
 	color: white;
 }
-
+#work pics-holder {
+    width: 100%;
+}
 #work .pictures{
+    position: relative;
+    top: 0;
 	margin: 3em 0 0 0;
 }
 #work .pictures img{
@@ -211,12 +191,11 @@ div .main a-:focus{
 }
 
 /*------------------------- Slide Show control and design----------------------------------------------*/
-.slideShow {box-sizing:border-box}
 /* Slideshow container */
 .slideShow{
-  max-width: 1000px;
   position: relative;
-  margin: 6.5em auto 0 auto;
+  margin: 0em auto 0 auto;
+ padding-top: 6.5em;
 }
 
 .slideShow .avatar{

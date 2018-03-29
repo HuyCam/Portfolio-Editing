@@ -1,0 +1,38 @@
+[
+    {
+        "name": "background 1",
+        "source": "image/background 1.jpg",
+        "author": "Anthony",
+        "site": "flickr.com"
+    },
+    {
+        "name": "background 2",
+        "source": "image/background 2.jpg",
+        "author": "Jeremy Bank",
+        "site": "flickr.com"
+    },
+    {
+        "name": "background 3",
+        "source": "image/background 3.jpg",
+        "author": "jm3 on Flickr",
+        "site": "flickr.com"
+    },
+    {
+        "name": "background 4",
+        "source": "image/background 4.jpg",
+        "author": "Perzonseo Webbyra",
+        "site": "flickr.com"
+    },
+    {
+        "name": "background 5",
+        "source": "image/background 5.jpg",
+        "author": "Mateusz",
+        "site": "flickr.com"
+    },
+    {
+        "name": "background 6",
+        "source": "image/background 6.jpg",
+        "author": "Gordon Joly",
+        "site": "flickr.com"
+    }
+]
