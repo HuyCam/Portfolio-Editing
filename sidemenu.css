@@ -1,9 +1,11 @@
 /*-------Side menu off-canvas-------*/
+
 .instruction {
     color: rgb(157, 157, 157);
     border-top: 2px dashed rgb(157, 157, 157);
     border-bottom: 2px dashed rgb(157, 157, 157);
 }
+
 #side-menu{
     position: fixed;
     height: 100%;
@@ -18,25 +20,49 @@
     z-index: 5;
     
 }
-#background-selector {
-    
-}
+
 #background-selector img:hover {
     border: 3px solid rgb(117, 214, 250);
 }
+
 #close-btn{
-    float: right;
-    font-size: 48px;
+    display:inline;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #959595rgb(149, 149, 149);
 }
+
+.close-btn-holder {
+    text-align: right;
+}
+
 #close-btn:hover {
     cursor: pointer;
     text-decoration: none;
+    color: rgb(208, 46, 46);
 }
+
 #main-edit img{
     width: 50%;
 }
+
 #main {
     margin: 0;
     transition: margin-left 1s;
+}
+
+.link-holder .link:focus {
+    border: 1px solid rgb(117, 214, 250);
+}
+
+#side-menu .btn-holder {
+    visibility: hidden;
+}
+
+#side-menu .link-holder:focus + .btn-holder{
+    visibility: visible;
+    transform: translateX(30px);
+    transition: transform .5s;
 }
 /*End side menu*/

@@ -286,9 +286,9 @@ var controller = (function (data, UI) {
             showSlides(0);
             startInterval();
             hideCollection();
+            expandMenu();
         }
     };
 })(pageData, UICtrl);
 
 controller.init();
-
