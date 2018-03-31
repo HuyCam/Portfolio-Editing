@@ -42,7 +42,7 @@ nav{
 	overflow: auto;
 	width: 100%;
 	z-index: 10;
-    transition: left 1s, width 1s, background-color .5s;
+    transition: left .5s, width .5s, background-color .5s;
 }
 nav .nav-space{
 	box-sizing: border-box;
@@ -79,7 +79,7 @@ nav div.navigations{
 
 /*Design Jumbotron*/
 div.main-page{
-	background-image: url('image/background 1.jpg');
+	background-image: url('../image/background 1.jpg');
 	background-size: cover;
 	color: white;
 	height: 607px;
