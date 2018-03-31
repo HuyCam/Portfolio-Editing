@@ -6,7 +6,8 @@ var pageData = (function () {
     return {
         getTemplate: function () {
             return template.editContent;
-        }
+        },
+        menuOpen: false
     };
 })();
 
@@ -15,6 +16,7 @@ var UICtrl = (function () {
         dot: '.dot',
         slide: '.slide',
         sideMenu: '#side-menu',
+        sideMenuBtn: '#side-menu button',
         main: '#main',
         edit: '#edit',
         closeBtn: '#close-btn',
@@ -50,13 +52,13 @@ var UICtrl = (function () {
 
             // make menu width to 20% of body
             sideMenu.style.width = '20%';
-
+            console.log(sideMenu);
             // change main page width
             main.style.marginLeft = menuWidth + 'px';
 
             // make navigation bar as the same width as main page and
             // also indent as the same space as main page
-            nav.style.width = (body.offsetWidth - 250) + 'px';
+            nav.style.width = (body.offsetWidth - menuWidth) + 'px';
             nav.style.left = menuWidth + 'px';
 
             // Overflow control
@@ -173,7 +175,7 @@ var controller = (function (data, UI) {
         // get and display background images
         UI.backgroundImage(e);
 
-        // add Event Listener
+        // add Event Listener to background change
         $(DOMString.backgroundGallery).on('click', backgroundChange);
     }
 
@@ -191,31 +193,39 @@ var controller = (function (data, UI) {
             $targetChange.text(value);
         } else {
             $targetChange = $('#' + targetID);
-                $targetChange.css('background-color', value);
+            $targetChange.css('background-color', value);
         }
     }
 
     var expandMenu = function () {
-        // Expend menu
-        UI.expendMenu();
+        if (!data.menuOpen) {
+            // Expend menu
+            UI.expendMenu();
 
-        // Stop interval
-        stopInterval();
 
-        // Add event
-        $(DOMString.main).on('dblclick', editTextCtr);
-        $(DOMString.sideMenu + ' button').on('click', makeChangeBtn);
+            // Stop interval
+            stopInterval();
 
+            // Add event
+            $(DOMString.main).on('dblclick', editTextCtr);
+            $(DOMString.sideMenuBtn).on('click', makeChangeBtn);
+
+            // set menuOpen to true indicates that menu is already open
+            data.menuOpen = true;
+        }
     };
 
     var closeMenu = function () {
-        // close menu
-        UI.closeMenu();
-        // start interval
-        startInterval();
-        // Remove event
-        $(DOMString.main).off('dblclick');
-
+        if (data.menuOpen) {
+            // close menu
+            UI.closeMenu();
+            // start interval
+            startInterval();
+            // Remove event
+            $(DOMString.main).off('dblclick');
+            // set menuOpen to false after closing
+            data.menuOpen= false;
+        }
     };
 
     function navigationCtrl() {
@@ -261,6 +271,15 @@ var controller = (function (data, UI) {
 
         // background img select 
         $(DOMString.backgroundSelector).on('click', backgroundGallery);
+
+        // window on change (resize)
+        window.onresize = function (e) {
+            if (data.menuOpen) {
+                data.menuOpen = false;
+                expandMenu();
+            }
+
+        }
     })();
 
     // slide show control
