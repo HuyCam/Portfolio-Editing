@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="author" content="huy cam">
-	<link href="css/bootstrap.min.css" rel="stylesheet" >
-	<link href="css/fa-svg-with-js.css" rel="stylesheet">
-	<link href="css/background.css" rel="stylesheet">
-	<link href="css/sidemenu.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet" >
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/fontawesome-all.min.js"></script>
-	
-	<title>Porfolio</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="huy cam">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fa-svg-with-js.css" rel="stylesheet">
+    <link href="css/background.css" rel="stylesheet">
+    <link href="css/sidemenu.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/fontawesome-all.min.js"></script>
+
+    <title>Porfolio</title>
 </head>
+
 <body class="">
     <div id="side-menu">
-    <div class="close-btn-holder"><a id="close-btn"><i class="fas fa-window-close"></i></a></div>
-    <div class="instruction">
-        <p>- Double click on any text in the main page to edit text</p>
-        <p>- Button text to edit the text in the button in the jumbotron</p>
-        <p>- Click on any image in the collections to select your desire picture</p>
-    </div>
-     
-      
-       <div id="main-edit">
-           <h3><i class="fas fa-check-square"></i> Main</h3>
-           <p>Background: <a id="background-selector" href=""><img src="image/background 1.jpg"></p></a>
-           <p>Button text: <input type="text"></p>
+        <div class="close-btn-holder"><a id="close-btn"><i class="fas fa-window-close"></i></a></div>
+        <div class="instruction">
+            <p>- Double click on any text in the main page to edit text</p>
+            <p>- Button text to edit the text in the button in the jumbotron</p>
+            <p>- Click on any image in the collections to select your desire picture</p>
+        </div>
+
+
+        <div id="main-edit">
+            <h3><i class="fas fa-check-square"></i> Main</h3>
+            <p>Background: <a id="background-selector" href=""><img src="image/background 1.jpg"></p></a>
+                <p>Button text: <input type="text"></p>
+                <button>Change</button>
+        </div>
+        <div id="work-edit">
+            <h3><i class="fas fa-check-square"></i> Work</h3>
+            <p>Background: <input type="color" class="back-color"></p>
             <button>Change</button>
-       </div>
-       <div id="work-edit">
-           <h3><i class="fas fa-check-square"></i> Work</h3>
-           <p>Background: <input type="color" class="back-color"></p>
-           <button>Change</button>
-       </div>
-       <div id="client-edit">
-           <h3><i class="fas fa-check-square"></i> Client</h3>
-           <p>Background: <input type="color" class="back-color"></p>
-           <button>Change</button>
-       </div>
-       <div id="contact-edit">
-           <h3><i class="fas fa-check-square"></i> Contact</h3>
-           <p>Background: <input type="color" class="back-color"></p>
-           <button>Change</button>
-       </div>
-       <div id="footer-edit">
-           <h3><i class="fas fa-check-square"></i> Footer</h3>
-           <p>Add Social media</p>
-           <div class="social-ico-holder">
-               <i id="fb" style="" class="fab fa-facebook-square"></i>
-               <i id="twiter" class="fab fa-twitter-square"></i>
-               <i id="linked-in" class="fab fa-linkedin"></i>
-           </div>
-           <p>On Screen</p>
-           <div class="social-ico-holder available">
-               <p class="link-holder"><i id="fb" style="" class="fab fa-facebook-square"></i><span class="link" contenteditable="true">httpwww.123.com</span></p>
-               <p class="btn-holder"><i class="far fa-check-circle"></i><i class="far fa-times-circle"></i></p>
-               
-               <p><i id="twiter" class="fab fa-twitter-square"></i></p>
-               <p><i id="linked-in" class="fab fa-linkedin"></i></p>
-           </div>
-       </div>
+        </div>
+        <div id="client-edit">
+            <h3><i class="fas fa-check-square"></i> Client</h3>
+            <p>Background: <input type="color" class="back-color"></p>
+            <button>Change</button>
+        </div>
+        <div id="contact-edit">
+            <h3><i class="fas fa-check-square"></i> Contact</h3>
+            <p>Background: <input type="color" class="back-color"></p>
+            <button>Change</button>
+        </div>
+        <div id="footer-edit">
+            <h3><i class="fas fa-check-square"></i> Footer</h3>
+            <p>Add Social media</p>
+            <div class="social-ico-holder">
+                <i id="fb" style="" class="fab fa-facebook-square"></i>
+                <i id="twiter" class="fab fa-twitter-square"></i>
+                <i id="linked-in" class="fab fa-linkedin"></i>
+            </div>
+            <p>On Screen</p>
+            <div class="social-ico-holder available">
+                <p class="link-holder"><i id="fb" style="" class="fab fa-facebook-square"></i><span class="link" contenteditable="true">httpwww.123.com</span></p>
+                <p class="btn-holder"><i class="far fa-check-circle"></i><i class="far fa-times-circle"></i></p>
+
+                <p><i id="twiter" class="fab fa-twitter-square"></i></p>
+                <p><i id="linked-in" class="fab fa-linkedin"></i></p>
+            </div>
+        </div>
     </div>
-   
-       <!-- editContent
+
+    <!-- editContent
          <div id="edit-container" class="container">
           <div class="text-holder">
            <h1>Edit Text</h1>
@@ -72,8 +74,8 @@
           </div> 
        </div>
        -->
-       
-       <!-- background image selecting 
+
+    <!-- background image selecting 
        <div id="background-gallery">
            <div class="background-holder">
                <img src="image/background 1.jpg" class="img-rounded img-responsive">
@@ -85,8 +87,30 @@
            </div>
        </div>
        -->
-    
-       
+    <!-- collection image
+       <div id="collection-images">
+        <div class="image-box">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            <img src="image/collection 1.jpg">
+            
+        </div>
+    </div>
+      -->
+   
     <div id="main">
         <nav id="navbar">
             <div class="brand nav-space">
@@ -111,7 +135,7 @@
             </div>
         </div>
 
-    <!--Work-->
+        <!--Work-->
         <div class="container-fluid" id="work">
             <img src="image/notebook.png" class="small-ico">
             <h1>Some Big Words Right Here</h1>
@@ -119,46 +143,46 @@
             <div class="categories-holder">
                 <div class="collections-holder">
                     <a href="#" number="1" class="collection active">Collection 1</a>
-                    <a href="#" number="2" class= "collection">Collection 2</a>
-                    <a href="#" number="3" class= "collection">Collection 3</a>
-                    <a href="#" number="4" class= "collection">Collection 4</a>
+                    <a href="#" number="2" class="collection">Collection 2</a>
+                    <a href="#" number="3" class="collection">Collection 3</a>
+                    <a href="#" number="4" class="collection">Collection 4</a>
                 </div>
             </div>
             <div class="pics-holder">
-            <div class="pictures">
-                <div class="image-holder"><img src="image/collection1.jpg"></div>
-                <div class="image-holder"><img src="image/collection2.jpg"></div>
-                <div class="image-holder"><img src="image/collection3.jpg"></div>
-                <div class="image-holder"><img src="image/collection4.jpg"></div>
-                <div class="image-holder"><img src="image/collection5.jpg"></div>
-            </div>
-            
-            <div class="pictures">
-                <div class="image-holder"><img src="image/collection 6.jpg"></div>
-                <div class="image-holder"><img src="image/collection 7.jpg"></div>
-                <div class="image-holder"><img src="image/collection 8.jpg"></div>
-                <div class="image-holder"><img src="image/collection 9.jpg"></div>
-                <div class="image-holder"><img src="image/collection 10.jpg"></div>
-            </div>
-            
-            <div class="pictures">
-                <div class="image-holder"><img src="image/collection 11.jpg"></div>
-                <div class="image-holder"><img src="image/collection 12.jpg"></div>
-                <div class="image-holder"><img src="image/collection 13.jpg"></div>
-                <div class="image-holder"><img src="image/collection 14.jpg"></div>
-                <div class="image-holder"><img src="image/collection 15.jpg"></div>
-            </div>
-            
-            <div class="pictures">
-                <div class="image-holder"><img src="image/collection1.jpg"></div>
-                <div class="image-holder"><img src="image/collection2.jpg"></div>
-                <div class="image-holder"><img src="image/collection3.jpg"></div>
-                <div class="image-holder"><img src="image/collection4.jpg"></div>
-                <div class="image-holder"><img src="image/collection5.jpg"></div>
-            </div>
+                <div class="pictures">
+                    <div class="image-holder"><img src="image/collection 1.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 2.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 1.JPG"></div>
+                    <div class="image-holder"><img src="image/collection 4.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 5.JPG"></div>
+                </div>
+
+                <div class="pictures">
+                    <div class="image-holder"><img src="image/collection 6.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 7.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 8.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 9.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 10.jpg"></div>
+                </div>
+
+                <div class="pictures">
+                    <div class="image-holder"><img src="image/collection 11.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 12.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 13.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 14.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 15.jpg"></div>
+                </div>
+
+                <div class="pictures">
+                    <div class="image-holder"><img src="image/collection 1.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 2.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 3.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 4.jpg"></div>
+                    <div class="image-holder"><img src="image/collection 5.jpg"></div>
+                </div>
             </div>
         </div>
-    <!--Client, slide show-->
+        <!--Client, slide show-->
         <div class="container-fluid slideShow" id="client">
             <div class="slide fadeIn">
                 <img src="image/client.png" class="small-ico">
@@ -186,80 +210,81 @@
 
             <!-- The dots/circles -->
             <div style="text-align:center">
-              <span class="dot" index='0'></span>
-              <span class="dot" index='1'></span>
-              <span class="dot" index='2'></span>
+                <span class="dot" index='0'></span>
+                <span class="dot" index='1'></span>
+                <span class="dot" index='2'></span>
             </div>
         </div>
 
 
-    <!--Contact-->
+        <!--Contact-->
         <div class="container-fluid" id="contact">
-        <hr />
-              <div class="row">
-                 <div class="col-md-6 col-md-offset-3">
+            <hr />
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
                     <img src="image/client.png" class="small-ico">
                     <h1 class="text-center">Have Question?</h1>
                     <p class="text-center  ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum eget nulla molestie ultrices. Ut varius erat massa, sed imperdiet urna eleifend a</p>
-                 </div>
-               </div>
+                </div>
+            </div>
 
             <form action="#" method="post" role="form" class="form-horizontal">
 
                 <div class="row">
-                <div class="col-md-4">
-                    <p class="text-holder">
-                      <label for="name">Your Name:</label>
-                       <input type="text" placeholder="Your Name" id="name" class="form-control">
-                    </p>
-                </div> 
-                <div class="col-md-4">
-                    <p class="text-holder">
-                      <label for="email">Your Email:</label>
-                       <input type="email" placeholder="Your Email" id="email" class="form-control">
-                    </p>
-                </div> 
-                <div class="col-md-4">
-                    <p class="text-holder">
-                      <label for="subject">Your Subject:</label>
-                       <input type="text" placeholder="Your Subject" id="subject" class="form-control">
-                    </p>
-                </div> 
+                    <div class="col-md-4">
+                        <p class="text-holder">
+                            <label for="name">Your Name:</label>
+                            <input type="text" placeholder="Your Name" id="name" class="form-control">
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-holder">
+                            <label for="email">Your Email:</label>
+                            <input type="email" placeholder="Your Email" id="email" class="form-control">
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-holder">
+                            <label for="subject">Your Subject:</label>
+                            <input type="text" placeholder="Your Subject" id="subject" class="form-control">
+                        </p>
+                    </div>
                 </div>
 
-               <div class="row">
-                <div class="col-md-12">
-                    <textarea class="form-control" name="content" id="" placeholder="Your Content"></textarea> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea class="form-control" name="content" id="" placeholder="Your Content"></textarea>
+                    </div>
                 </div>
-               </div>
                 <button class="btn btn-primary submit btn-custom">Send message</button>
 
             </form>
 
         </div>
-        
+
         <footer class="container-fluid">
-         <hr />
-          <div class="row">
-              <div class="col-md-6 col-md-offset-3">
-                  <div class="social">
-                     <div class="soc-container"><a href="#"><i id="fb" style="" class="fab fa-facebook-square"></i></a></div>
-                     <span class="soc-container"><a href="#"><i id="twiter" class="fab fa-twitter-square"></i></a></span>
-                     <span class="soc-container"><a href="#"><i id="linked-in" class="fab fa-linkedin"></i></a></span>
-                  </div>
-              </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="social">
+                        <div class="soc-container"><a href="#"><i id="fb" style="" class="fab fa-facebook-square"></i></a></div>
+                        <span class="soc-container"><a href="#"><i id="twiter" class="fab fa-twitter-square"></i></a></span>
+                        <span class="soc-container"><a href="#"><i id="linked-in" class="fab fa-linkedin"></i></a></span>
+                    </div>
+                </div>
             </div>
-           <div class="row footer-contact">
-                    <div class="col-md-6 col-md-offset-3">
+            <div class="row footer-contact">
+                <div class="col-md-6 col-md-offset-3">
                     <p class="text-center">Contact Address: 123 Main Street</p>
                     <p class="text-center">Phone number: 817-999-9999</p>
                     <p class="text-center">All right Reserves &copy; Huy Cam</p>
-                    </div>
+                </div>
             </div>
-            
+
         </footer>
     </div>
-	<script src="js/slideShow.js"></script>
-	<script src="js/main.js"></script>
+    <script src="js/slideShow.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

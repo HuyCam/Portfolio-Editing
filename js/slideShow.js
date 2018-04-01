@@ -7,7 +7,8 @@ var pageData = (function () {
         getTemplate: function () {
             return template.editContent;
         },
-        menuOpen: false
+        menuOpen: false,
+        collectionImageTarget: '',
     };
 })();
 
@@ -25,8 +26,11 @@ var UICtrl = (function () {
         editBtn: '#edit-btn',
         editText: '#edit-text',
         editContainer: '#edit-container',
+        picHolder : '.pics-holder',
         collection: '.collection',
+        imageHolder: '.image-holder',
         pictures: '.pictures',
+        collectionImages: '#collection-images',
         mainBtn: '#main-btn',
         backgroundSelector: '#background-selector',
         backgroundGallery: '#background-gallery',
@@ -35,8 +39,11 @@ var UICtrl = (function () {
     };
 
     return {
-        addEditBox: function (html) {
-            $('body').prepend(html);
+        addHTMLTemplate: function (selector ,html) {
+            $(selector).prepend(html);
+        },
+        appendDOMnode: function (parent, DOM) {
+          $(parent).append(DOM);  
         },
         removeElement: function (element) {
             $(element).remove();
@@ -66,6 +73,9 @@ var UICtrl = (function () {
             setTimeout(function () {
                 sideMenu.style.overflowY = 'auto'
             }, 500);
+            
+            // add editable class to collections
+            $(DOMString.imageHolder).find('img').toggleClass('editable');
         },
         closeMenu: function () {
             var main, nav;
@@ -80,6 +90,9 @@ var UICtrl = (function () {
             // navigation width and lef offset back to normal
             nav.style.left = 0;
             nav.style.width = '100%';
+            
+            // remove editable class from colelctions
+            $(DOMString.imageHolder).find('img').toggleClass('editable');
         },
         getDOMString: function () {
             return DOMString;
@@ -94,6 +107,7 @@ var UICtrl = (function () {
             e.target.classList.toggle('active');
             $(DOMString.pictures).fadeOut(500);
             pic.delay(400).fadeIn(500);
+            console.log('collection Display is triger');
         },
         backgroundImage: function (e) {
             e.preventDefault();
@@ -146,7 +160,7 @@ var controller = (function (data, UI) {
             // Get edit box template
             var template = data.getTemplate();
             // Add edit box template to UI
-            UI.addEditBox(template);
+            UI.addHTMLTemplate('body', template);
             $(DOMString.editText)[0].focus();
             // Add event to submit change
             $(DOMString.editBtn).on('click', updateText);
@@ -196,12 +210,49 @@ var controller = (function (data, UI) {
             $targetChange.css('background-color', value);
         }
     }
-
+    
+    function imageCollectionSelect(e) {
+        let ele = e.target;
+        let parent = ele.parentNode;
+        
+        // if it is image then open pop up window
+        if (parent.className === 'image-holder') {
+            // create contain DOM node
+            let main = document.createElement('div');
+            let div = document.createElement('div');
+            main.setAttribute('id', 'collection-images');
+            div.setAttribute('class', 'image-box');
+            
+            //render all images
+            $.getJSON('data/collections.json').done(function (data) {
+            data.forEach(function(cur) {
+               let img = document.createElement('img');
+                img.setAttribute('src', cur.src);
+                div.appendChild(img);
+            });
+            }).fail(function () {
+            console.log('Can not load collections.json');
+            });
+            
+            // display all content
+            main.appendChild(div);
+            UI.appendDOMnode(DOMString.picHolder, main);
+            
+            // save the target
+            data.collectionImageTarget = ele;
+            
+        } // if it is image in pop up window then change image source of event target
+        else if (parent.className === 'image-box') {
+            let newSRC = ele.getAttribute('src');
+            data.collectionImageTarget.setAttribute('src', newSRC);
+            UI.removeElement(DOMString.collectionImages);
+            data.collectionImageTarget = '';
+        }
+    }
     var expandMenu = function () {
         if (!data.menuOpen) {
             // Expend menu
             UI.expendMenu();
-
 
             // Stop interval
             stopInterval();
@@ -266,6 +317,7 @@ var controller = (function (data, UI) {
         // navigation bar click
         $(DOMString.main + ' ' + DOMString.navigations).on('click', navigationScroll);
         $(DOMString.mainBtn).on('click', navigationScroll);
+        
         // collection display on respectively name tag
         $(DOMString.collection).on('click', UI.collectionDisplay);
 
@@ -278,8 +330,10 @@ var controller = (function (data, UI) {
                 data.menuOpen = false;
                 expandMenu();
             }
-
-        }
+        };
+        
+        // choose images from collection
+        $(DOMString.picHolder).on('click', imageCollectionSelect)
     })();
 
     // slide show control
@@ -312,7 +366,7 @@ var controller = (function (data, UI) {
 
     // Testing purpose, deleted this if finished a complete product
     function jsonTesting() {
-        $.getJSON('data/image-JSON.json').done(function (data) {
+        $.getJSON('data/collections.json').done(function (data) {
             console.log(data);
         }).fail(function () {
             console.log('Can not load JSON');
@@ -325,6 +379,7 @@ var controller = (function (data, UI) {
             startInterval();
             UI.hideCollections();
             expandMenu();
+            jsonTesting();
         }
     };
 })(pageData, UICtrl);

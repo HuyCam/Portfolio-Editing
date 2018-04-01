@@ -1,28 +1,42 @@
-#background-gallery {
+#background-gallery, #collection-images {
     position: fixed;
     z-index: 15;
     top: 0;
     left: 0;
-    background-color: rgb(103, 103, 103, 0.8);
+    background-color: rgba(103, 103, 103, 0.95);
     height: 100%;
 }
-#background-gallery .background-holder {
+#background-gallery .background-holder, #collection-images div {
     width: 75%;
     margin: 2em auto 0 auto;
+    overflow: auto;
+    height: 100%;
 }
-#background-gallery img {
+#background-gallery img, {
     text-align: center;
     display: inline-block;
     width: 300px;
     height: 200px;
     clear: right;
     margin: 1em .2em 0 .2em;
+    border-radius: 5%;
 }
-#background-gallery img:hover{
+#background-gallery img:hover, #collection-images img:hover {
     border: 3px solid rgb(117, 214, 250);
     cursor: pointer;
 }
 #background-gallery img:focus{
     border: 3px solid rgb(117, 214, 250);
     cursor: pointer;
+}
+.editable {
+    cursor: pointer;
+}
+#collection-images img {
+    text-align: center;
+    display: inline-block;
+    width: 200px;
+    clear: right;
+    margin: 1em .2em 0 .2em;
+    border-radius: 5%;
 }
