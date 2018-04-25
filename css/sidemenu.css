@@ -24,7 +24,6 @@
 #background-selector img:hover {
     border: 3px solid rgb(117, 214, 250);
 }
-
 #close-btn{
     display:inline;
     font-size: 24px;
@@ -52,17 +51,27 @@
     transition: margin-left .5s;
 }
 
-.link-holder .link:focus {
-    border: 1px solid rgb(117, 214, 250);
+/*Social Icon design*/
+#side-menu #footer-edit .social-ico-holder {
+    font-size: 48px;
 }
 
-#side-menu .btn-holder {
-    visibility: hidden;
+#side-menu #footer-edit .social-ico-holder svg:hover {
+    color : chocolate;
+    cursor: pointer;
 }
 
-#side-menu .link-holder:focus + .btn-holder{
-    visibility: visible;
-    transform: translateX(30px);
-    transition: transform .5s;
+#side-menu #footer-edit .available svg:hover {
+    color: rgb(208, 46, 46);
+    cursor: pointer;
 }
+
+#footer-edit .link {
+    border-bottom: 2px solid rgb(117, 214, 250);
+}
+
+#footer-edit .link:focus {
+    border: 2px solid rgb(117, 214, 250);
+}
+
 /*End side menu*/

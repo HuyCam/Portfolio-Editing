@@ -1,14 +1,73 @@
 var pageData = (function () {
+    // create a socialIcon object which keep the data of the object icon on the page (at the footer)
+    function SocialIcon(id, type) {
+        this.id = id;
+        switch (type) {
+            case 'facebook': 
+                this.classType = 'fa-facebook-square';
+                break;
+            case 'twitter':
+                this.classType = 'fa-twitter-square';
+                break;
+            case 'linkedin':
+                this.classType = 'fa-linkedin';
+                break; 
+            default:
+                this.classType ='unknown';
+        }
+    }
+    
     var template = {
         editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>'
     };
 
+    var data = {
+        socialIconObj: []  
+    }
+    
     return {
         getTemplate: function () {
             return template.editContent;
         },
         menuOpen: false,
         collectionImageTarget: '',
+        // get the socialIconObj array from data object
+        getSocialIcons: function() {
+            return data.socialIconObj;
+        },
+        // add a new social button object in the socialIconObj array
+        addSocialIconObj: function(type) {
+            // create an id
+            let id;
+            if (data.socialIconObj.length == 0) {
+                id = 0;
+            } else {
+                let lastObject = data.socialIconObj[data.socialIconObj.length - 1];
+                id = lastObject.id + 1;
+            } 
+            
+            var newSocial = new SocialIcon(id, type);
+            data.socialIconObj.push(newSocial);
+            return newSocial;
+        },
+        // create a socialIcon HTML element from the socialIcon object
+        createSocialEle: function (socialObj) {
+            
+            let divContainer = document.createElement('div');
+            divContainer.className = 'soc-container';
+            
+            let a = document.createElement('a');
+            a.href = 'http://';
+            
+            let ele = document.createElement('i');
+            ele.className = 'fab ' + socialObj.classType;
+            ele.id = socialObj.id;
+            
+            a.appendChild(ele);
+            divContainer.appendChild(a);
+            
+            return divContainer;
+        }
     };
 })();
 
@@ -35,7 +94,9 @@ var UICtrl = (function () {
         backgroundSelector: '#background-selector',
         backgroundGallery: '#background-gallery',
         mainPage: '.main-page',
-        nav: 'nav'
+        nav: 'nav',
+        link: '#side-menu .available',
+        socialIco: '#side-menu .social-ico'
     };
 
     return {
@@ -59,7 +120,6 @@ var UICtrl = (function () {
 
             // make menu width to 20% of body
             sideMenu.style.width = '20%';
-            console.log(sideMenu);
             // change main page width
             main.style.marginLeft = menuWidth + 'px';
 
@@ -109,6 +169,7 @@ var UICtrl = (function () {
             pic.delay(400).fadeIn(500);
             console.log('collection Display is triger');
         },
+        // gather info about provided source of images and then render a pop up option with background images for user to select.
         backgroundImage: function (e) {
             e.preventDefault();
             let div = document.createElement('div');
@@ -133,8 +194,32 @@ var UICtrl = (function () {
         hideCollections: function () {
             $(DOMString.pictures).hide();
             $(DOMString.pictures + ':eq(0)').show();
+        },
+        // insert the socialIcon to page
+        insertSocialIcon: function(socialEle) {
+            let targetEle = document.querySelector('footer .social');
+            targetEle.appendChild(socialEle);
+        },
+        // append the social icon editor (control social link href) in the side menu
+        insertSocialEditor: function(type, id) {
+             let mainNode = document.querySelector('#side-menu #footer-edit .available');
+            
+            let p = document.createElement('p');
+            p.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' link: ';
+            
+            let span = document.createElement('span');
+            span.setAttribute('id-social', id);
+            span.setAttribute('contenteditable', 'true');
+            span.className = 'link';
+            span.textContent = 'http://';
+            
+            let svg = document.createElement('i');
+            svg.setAttribute('data-fa-transform', 'grow-6 right-6');
+            svg.className = 'fas fa-minus-circle fa-spin';
+            p.appendChild(span);
+            p.appendChild(svg);
+            mainNode.appendChild(p);
         }
-
     };
 })();
 var controller = (function (data, UI) {
@@ -173,6 +258,8 @@ var controller = (function (data, UI) {
         }
     }
 
+    // This controll to change the background using
+    // provided images of background
     function backgroundChange(e) {
         let ele = e.target;
         if (ele.nodeName == 'IMG') {
@@ -192,7 +279,10 @@ var controller = (function (data, UI) {
         // add Event Listener to background change
         $(DOMString.backgroundGallery).on('click', backgroundChange);
     }
+    
+    
 
+    // control the button change in edit menu
     function makeChangeBtn(e) {
         let $targetChange;
         let ele = e.target;
@@ -209,6 +299,68 @@ var controller = (function (data, UI) {
             $targetChange = $('#' + targetID);
             $targetChange.css('background-color', value);
         }
+    }
+    
+    // this function will link the contenteditable span link in edit menu
+    // to the social url in the main porfolio
+    function embedLink(e) {
+        const ele = e.target;
+        const attr = ele.getAttribute('id-social');
+        let ico = document.getElementById(attr);
+        const mainEle = document.getElementById(attr).parentNode;
+        mainEle.href= ele.textContent;
+        
+        // hight light corresponding social icon
+        ico.style.color = '';
+    }
+    
+    // append social link editor to side menu
+    function appendSocialEditor(socialObj) {
+        let type = socialObj.classType.split('-')[1];
+        let id = socialObj.id;
+        
+        UI.insertSocialEditor(type, id);
+    }
+    
+    // when focus on social icon in side menu, social icon in the main page is highlight with cholate color
+    function socialLinkEdit(e) {
+        const ele = e.target;
+        
+        if (ele.className == 'link') {
+        const attr = ele.getAttribute('id-social');
+        const ico = document.getElementById(attr);
+        
+        // hight light corresponding social icon
+        ico.style.color = 'chocolate';
+        }
+    }
+    
+    // this function will add social icon to side menu and and social icon to main page
+    function addSocialLink(type) {
+        // add a social button correspondingly to that clicked button on the main page
+        let newSocialIco = data.addSocialIconObj(type);
+        appendSocialIcon(newSocialIco);
+
+        // add a editor which will pair with the social button on the main page
+        appendSocialEditor(newSocialIco);
+    }
+    
+    function handleAddSocial(e) {
+        
+        /* since the event target is fired on svg inconsistently, I have to check if it is fired on svg element or path (which is child node of svg element) to find correct span */
+        let span;
+        if (e.target.parentNode.getAttribute('type')) {
+            span = e.target.parentNode;
+        } 
+        else if (e.target.parentNode.parentNode.getAttribute('type')) {
+            span = e.target.parentNode.parentNode;
+        }
+        
+        const type = span.getAttribute('type');
+        // determine if the selected node is right, which means its parent node of parent node has the type attribute
+        if (type) {
+           addSocialLink(type);
+        }    
     }
     
     function imageCollectionSelect(e) {
@@ -254,12 +406,19 @@ var controller = (function (data, UI) {
             // Expend menu
             UI.expendMenu();
 
-            // Stop interval
+            // Stop interval which will slide through content at the client section
             stopInterval();
 
-            // Add event
+            // Add event: double click to edit text, make changeBtn
             $(DOMString.main).on('dblclick', editTextCtr);
             $(DOMString.sideMenuBtn).on('click', makeChangeBtn);
+            
+            // modify social icon event
+            // !!!!!!!!!!! THESE EVENTS NEEDED TO BE TAKE OF WHEN FINALLIZE THE PAGE
+            $(DOMString.link).focusout(embedLink);
+            $(DOMString.link).on('focusin', socialLinkEdit);
+            // add social media 
+            $(DOMString.socialIco).on('click', handleAddSocial);
 
             // set menuOpen to true indicates that menu is already open
             data.menuOpen = true;
@@ -274,6 +433,7 @@ var controller = (function (data, UI) {
             startInterval();
             // Remove event
             $(DOMString.main).off('dblclick');
+            $(DOMString.link).off('focusout');
             // set menuOpen to false after closing
             data.menuOpen= false;
         }
@@ -297,7 +457,7 @@ var controller = (function (data, UI) {
     }
 
     // Handle all events happen in the DOM
-    var eventHandle = (function () {
+    var eventHandler = (function () {
         // controll dot in the slides
         $(DOMString.dot).on('click', function (e) {
             var index = $(this).attr('index');
@@ -355,6 +515,13 @@ var controller = (function (data, UI) {
         }
         showSlides(index + 1);
     };
+    
+    // create new social icon object, add it to data storage and append it to html page
+    function appendSocialIcon(socialObj) {
+        console.log('run');
+        UI.insertSocialIcon(data.createSocialEle(socialObj));
+
+    }
 
     function startInterval() {
         interValCtr = setInterval(autoSlide, 3000);
@@ -365,21 +532,18 @@ var controller = (function (data, UI) {
     }
 
     // Testing purpose, deleted this if finished a complete product
-    function jsonTesting() {
-        $.getJSON('data/collections.json').done(function (data) {
-            console.log(data);
-        }).fail(function () {
-            console.log('Can not load JSON');
-        });
-    }
+    
     // end testing
     return {
         init: function () {
             showSlides(0);
             startInterval();
             UI.hideCollections();
-            expandMenu();
-            jsonTesting();
+            
+            // create 3 social icon and append to html page
+            addSocialLink('facebook');
+            addSocialLink('twitter');
+            addSocialLink('linkedin');
         }
     };
 })(pageData, UICtrl);

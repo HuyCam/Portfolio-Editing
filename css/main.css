@@ -250,25 +250,19 @@ div .main a-:focus{
     display: inline-block;
     padding: 0.5em;
 }
-#fb, #linked-in, #twiter {
+footer .soc-container {
 
     font-size: 42px;
     transition: font-size 2s;
 }
-footer #fb:hover {
+footer .fa-facebook-square:hover {
     color: cornflowerblue;
-    font-size: 68px;
-    transition: font-size 2s;
 }
-footer #linked-in:hover {
+footer .fa-linkedin:hover {
     color:darkblue;
-    font-size: 68px;
-    transition: font-size 2s;
 }
-footer #twiter:hover {
+footer .fa-twitter-square:hover {
     color: coral;
-    font-size: 68px;
-    transition: font-size 2s;
 }
 footer .footer-contact {
     text-align: center;

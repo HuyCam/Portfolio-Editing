@@ -11,7 +11,7 @@
     <link href="css/main.css" rel="stylesheet">
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/fontawesome-all.min.js"></script>
-
+    <script src="js/jquery.hasEventListener-2.0.4.min.js"></script>
     <title>Porfolio</title>
 </head>
 
@@ -27,7 +27,7 @@
 
         <div id="main-edit">
             <h3><i class="fas fa-check-square"></i> Main</h3>
-            <p>Background: <a id="background-selector" href=""><img src="image/background 1.jpg"></p></a>
+            <p>Background: <a id="background-selector" href=""><img src="image/background 1.jpg"></a></p>
                 <p>Button text: <input type="text"></p>
                 <button>Change</button>
         </div>
@@ -50,17 +50,17 @@
             <h3><i class="fas fa-check-square"></i> Footer</h3>
             <p>Add Social media</p>
             <div class="social-ico-holder">
-                <i id="fb" style="" class="fab fa-facebook-square"></i>
-                <i id="twiter" class="fab fa-twitter-square"></i>
-                <i id="linked-in" class="fab fa-linkedin"></i>
+                <span type="facebook" class="social-ico"><i  class="fab fa-facebook-square"></i></span>
+                <span type="twitter" class="social-ico"><i class="fab fa-twitter-square"></i></span>
+                <span type="linkedin" class="social-ico"><i class="fab fa-linkedin"></i></span>
             </div>
             <p>On Screen</p>
-            <div class="social-ico-holder available">
-                <p class="link-holder"><i id="fb" style="" class="fab fa-facebook-square"></i><span class="link" contenteditable="true">httpwww.123.com</span></p>
-                <p class="btn-holder"><i class="far fa-check-circle"></i><i class="far fa-times-circle"></i></p>
+            <div class="available">
+                <!--<p>Facebook link: <scpan contenteditable id-social="-1" class="link">htttp://</scpan><i class="fas fa-minus-circle fa-spin" data-fa-transform="grow-6 right-6"></i></p>
 
-                <p><i id="twiter" class="fab fa-twitter-square"></i></p>
-                <p><i id="linked-in" class="fab fa-linkedin"></i></p>
+                <p>Twitter link: <scpan contenteditable id-social="1" class="link">htttp://</scpan></p>
+                <p>LinkedIn link: <scpan class="link" id-social="2" contenteditable>htttp://</scpan></p>
+                -->
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
     <div id="main">
         <nav id="navbar">
             <div class="brand nav-space">
-                <a class="main-a" id="edit" href="javascript:void(0">Linh Cam</a>
+                <a class="main-a" id="edit" href="javascript:void(0">Edit</a>
             </div>
             <div class="navigations nav-space">
                 <a class="main-a" href="#home">HOME</a>
@@ -267,9 +267,10 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     <div class="social">
-                        <div class="soc-container"><a href="#"><i id="fb" style="" class="fab fa-facebook-square"></i></a></div>
-                        <span class="soc-container"><a href="#"><i id="twiter" class="fab fa-twitter-square"></i></a></span>
-                        <span class="soc-container"><a href="#"><i id="linked-in" class="fab fa-linkedin"></i></a></span>
+                    <div>Hello</div>
+                        <!--<div class="soc-container"><a href="http://"><i id="0" class="fab fa-facebook-square"></i></a></div>
+                        <div class="soc-container"><a href="http://"><i id="1" class="fab fa-twitter-square"></i></a></div>
+                        <span class="soc-container"><a href="http://"><i id="2" class="fab fa-linkedin"></i></a></span>-->
                     </div>
                 </div>
             </div>
