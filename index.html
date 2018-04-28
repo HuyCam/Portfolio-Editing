@@ -29,22 +29,22 @@
             <h3><i class="fas fa-check-square"></i> Main</h3>
             <p>Background: <a id="background-selector" href=""><img src="image/background 1.jpg"></a></p>
                 <p>Button text: <input type="text"></p>
-                <button>Change</button>
+                <button class="edit">Change</button>
         </div>
         <div id="work-edit">
             <h3><i class="fas fa-check-square"></i> Work</h3>
             <p>Background: <input type="color" class="back-color"></p>
-            <button>Change</button>
+            <button class="edit">Change</button>
         </div>
         <div id="client-edit">
             <h3><i class="fas fa-check-square"></i> Client</h3>
             <p>Background: <input type="color" class="back-color"></p>
-            <button>Change</button>
+            <button class="edit">Change</button>
         </div>
         <div id="contact-edit">
             <h3><i class="fas fa-check-square"></i> Contact</h3>
             <p>Background: <input type="color" class="back-color"></p>
-            <button>Change</button>
+            <button class="edit">Change</button>
         </div>
         <div id="footer-edit">
             <h3><i class="fas fa-check-square"></i> Footer</h3>
@@ -56,12 +56,16 @@
             </div>
             <p>On Screen</p>
             <div class="available">
-                <!--<p>Facebook link: <scpan contenteditable id-social="-1" class="link">htttp://</scpan><i class="fas fa-minus-circle fa-spin" data-fa-transform="grow-6 right-6"></i></p>
+                <!--<p class="soc-container">Facebook link: <scpan contenteditable social-id="-1" class="link">htttp://</scpan><i class="fas fa-minus-circle fa-spin" data-fa-transform="grow-6 right-6"></i></p>
 
-                <p>Twitter link: <scpan contenteditable id-social="1" class="link">htttp://</scpan></p>
-                <p>LinkedIn link: <scpan class="link" id-social="2" contenteditable>htttp://</scpan></p>
+                <p>Twitter link: <scpan contenteditable social-id="1" class="link">htttp://</scpan></p>
+                <p>LinkedIn link: <scpan class="link" social-id="2" contenteditable>htttp://</scpan></p>
                 -->
             </div>
+        </div>
+        
+        <div id="edit-finalize">
+            <button>Finalize</button>
         </div>
     </div>
 
@@ -284,6 +288,20 @@
 
         </footer>
     </div>
+    <script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+<script>
+// Loading `lodash.fp.js` converts `_` to its fp variant.
+_.defaults({ 'a': 2, 'b': 2 })({ 'a': 1 });
+// ➜ { 'a': 1, 'b': 2 }
+
+// Use `noConflict` to restore the pre-fp variant.
+var fp = _.noConflict();
+
+_.defaults({ 'a': 1 }, { 'a': 2, 'b': 2 });
+// ➜ { 'a': 1, 'b': 2 }
+fp.defaults({ 'a': 2, 'b': 2 })({ 'a': 1 });
+// ➜ { 'a': 1, 'b': 2 }
+</script>
     <script src="js/slideShow.js"></script>
     <script src="js/main.js"></script>
 </body>

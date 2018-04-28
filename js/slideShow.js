@@ -67,6 +67,20 @@ var pageData = (function () {
             divContainer.appendChild(a);
             
             return divContainer;
+        },
+        deleteSocialData: function(id) {
+            let targetIndex;
+            data.socialIconObj.forEach(function(cur, i) {
+                if (cur.id === parseInt(id)) {
+                    targetIndex = i;
+                } 
+            });
+            let deletedObj = data.socialIconObj.splice(targetIndex, 1);
+        },
+        
+        // method for devleloper
+        getData: function() {
+            return data;
         }
     };
 })();
@@ -76,7 +90,7 @@ var UICtrl = (function () {
         dot: '.dot',
         slide: '.slide',
         sideMenu: '#side-menu',
-        sideMenuBtn: '#side-menu button',
+        sideMenuBtn: '#side-menu button.edit',
         main: '#main',
         edit: '#edit',
         closeBtn: '#close-btn',
@@ -95,7 +109,7 @@ var UICtrl = (function () {
         backgroundGallery: '#background-gallery',
         mainPage: '.main-page',
         nav: 'nav',
-        link: '#side-menu .available',
+        socialEditor: '#side-menu .available',
         socialIco: '#side-menu .social-ico'
     };
 
@@ -205,20 +219,33 @@ var UICtrl = (function () {
              let mainNode = document.querySelector('#side-menu #footer-edit .available');
             
             let p = document.createElement('p');
+            p.className = 'soc-container'
             p.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' link: ';
             
             let span = document.createElement('span');
-            span.setAttribute('id-social', id);
+            span.setAttribute('social-id', id);
             span.setAttribute('contenteditable', 'true');
             span.className = 'link';
             span.textContent = 'http://';
             
             let svg = document.createElement('i');
             svg.setAttribute('data-fa-transform', 'grow-6 right-6');
-            svg.className = 'fas fa-minus-circle fa-spin';
+            svg.className = 'fas fa-minus-circle';
             p.appendChild(span);
             p.appendChild(svg);
             mainNode.appendChild(p);
+        },
+        // delete social ico in side menu or main page
+        deleteSocialIco: function(id, option) {
+            switch (option) {
+                case 'side menu':
+                    break;
+                case 'main page':
+                    let social = document.querySelector('footer .social');
+                    let socialIcoContainer = document.getElementById(id).parentNode.parentNode;
+                    social.removeChild(socialIcoContainer);
+                    break;
+            }
         }
     };
 })();
@@ -238,6 +265,7 @@ var controller = (function (data, UI) {
     }
 
     function editTextCtr(e) {
+        e.preventDefault();
         ele = e.target;
         // Check if element content text
         if (ele.textContent && (ele.nodeName == 'H1' || ele.nodeName == 'H2' || ele.nodeName == 'H3' || ele.nodeName == 'H4' || ele.nodeName == 'H5' || ele.nodeName == 'P')) {
@@ -305,13 +333,19 @@ var controller = (function (data, UI) {
     // to the social url in the main porfolio
     function embedLink(e) {
         const ele = e.target;
-        const attr = ele.getAttribute('id-social');
-        let ico = document.getElementById(attr);
-        const mainEle = document.getElementById(attr).parentNode;
-        mainEle.href= ele.textContent;
-        
-        // hight light corresponding social icon
-        ico.style.color = '';
+        if (e.type === 'focusout') {
+            const attr = ele.getAttribute('social-id');
+            let ico = document.getElementById(attr);
+            const mainEle = document.getElementById(attr).parentNode;
+            mainEle.href= ele.textContent;
+
+            // disable hight light corresponding social icon
+            ico.style.color = '';
+        } else if (e.type === 'keydown' && e.key === 'Enter') {
+            e.preventDefault()
+            console.log(e.key);
+            e.target.blur();
+        }
     }
     
     // append social link editor to side menu
@@ -327,7 +361,7 @@ var controller = (function (data, UI) {
         const ele = e.target;
         
         if (ele.className == 'link') {
-        const attr = ele.getAttribute('id-social');
+        const attr = ele.getAttribute('social-id');
         const ico = document.getElementById(attr);
         
         // hight light corresponding social icon
@@ -362,6 +396,34 @@ var controller = (function (data, UI) {
            addSocialLink(type);
         }    
     }
+    
+    // event handler to handle delete button of a social editor
+    // in the #side-menu #footer-edit .available
+    function handlerDeleteSocialIco(e) {
+        let ele;
+        // in this case, in font awesome, what we clicked on is the <path> element which is a child of <svg>, so ownerSVG is the parent node of that element. ownerSVG contains all of hte <i> element contains.
+        if (e.target.nodeName == 'path') {
+            ele = e.target.parentNode.parentNode.parentNode;
+        } else if (e.target.nodeName == 'svg' ) {
+            ele = e.target;
+        }
+        // check the type of the font-awesome if it match the delete button
+        if (ele && ele.classList[1] == 'fa-minus-circle') {
+            let prevSibling = ele.previousSibling;
+            let parentNode = ele.parentNode;
+            let grandPartenNode = parentNode.parentNode;
+            let id = prevSibling.getAttribute('social-id');
+            
+            // delete social ico in main page
+            UI.deleteSocialIco(id, 'main page');
+            
+            // delete social ico object in data
+            data.deleteSocialData(id);
+            
+            // delete social editor in side menu
+            grandPartenNode.removeChild(parentNode);
+        }
+    } 
     
     function imageCollectionSelect(e) {
         let ele = e.target;
@@ -413,12 +475,16 @@ var controller = (function (data, UI) {
             $(DOMString.main).on('dblclick', editTextCtr);
             $(DOMString.sideMenuBtn).on('click', makeChangeBtn);
             
-            // modify social icon event
+            /* modify social icon event */
             // !!!!!!!!!!! THESE EVENTS NEEDED TO BE TAKE OF WHEN FINALLIZE THE PAGE
-            $(DOMString.link).focusout(embedLink);
-            $(DOMString.link).on('focusin', socialLinkEdit);
+            $(DOMString.socialEditor).focusout(embedLink);
+            $(DOMString.socialEditor).on('keydown', embedLink);
+            $(DOMString.socialEditor).on('focusin', socialLinkEdit);
+            $(DOMString.socialEditor).on('click', _.debounce(handlerDeleteSocialIco, 150));
             // add social media 
             $(DOMString.socialIco).on('click', handleAddSocial);
+            /* end of modify social icon event */
+            
 
             // set menuOpen to true indicates that menu is already open
             data.menuOpen = true;
@@ -433,7 +499,7 @@ var controller = (function (data, UI) {
             startInterval();
             // Remove event
             $(DOMString.main).off('dblclick');
-            $(DOMString.link).off('focusout');
+            $(DOMString.socialEditor).off('focusout');
             // set menuOpen to false after closing
             data.menuOpen= false;
         }
@@ -456,6 +522,22 @@ var controller = (function (data, UI) {
         }, 500);
     }
 
+    function finalize() {
+        console.log('finalize is running...');
+        let body = document.querySelector('body');
+        let sideMenu = document.getElementById('side-menu');
+        let edit = document.getElementById('edit');
+        
+        html = '<div id="edit-container" class="container"><div class="text-holder"><h2>After finalizing this web page, no more editing will be able to conduct. Are you sure?</h2><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>';
+        
+        UI.addHTMLTemplate('body', html);
+        console.log(body, sideMenu);
+        /*
+        edit.textContent = brand;
+        closeMenu();
+        body.removeChild(sideMenu);
+        */
+    }
     // Handle all events happen in the DOM
     var eventHandler = (function () {
         // controll dot in the slides
@@ -494,6 +576,9 @@ var controller = (function (data, UI) {
         
         // choose images from collection
         $(DOMString.picHolder).on('click', imageCollectionSelect)
+        
+        // finalize the webpage
+        $('#side-menu #edit-finalize button').on('click', finalize);
     })();
 
     // slide show control
@@ -531,8 +616,7 @@ var controller = (function (data, UI) {
         clearInterval(interValCtr);
     }
 
-    // Testing purpose, deleted this if finished a complete product
-    
+    //!!!!!!!!! Testing purpose, deleted this if finished a complete product
     // end testing
     return {
         init: function () {

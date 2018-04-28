@@ -74,4 +74,17 @@
     border: 2px solid rgb(117, 214, 250);
 }
 
+/* Finalize button */
+#side-menu #edit-finalize button{
+    border: 2px solid rgb(117, 214, 250);
+    border-radius: 5px;
+    background-color: blanchedalmond;
+    font-size: 24px;
+    float: right;
+    margin-bottom: 1.5em;
+}
+
+#side-menu #edit-finalize button:hover{
+    background-color: #f5cea0;    
+}
 /*End side menu*/
