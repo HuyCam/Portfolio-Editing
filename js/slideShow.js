@@ -18,7 +18,9 @@ var pageData = (function () {
     }
     
     var template = {
-        editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>'
+        editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>',
+        brandContent: '<div id="edit-container" class="container"><div class="text-holder"><h2>Enter Your Brand Name</h2><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>',
+        choiceContent: '<div id="edit-container" class="container"><div class="text-holder"><h2 class="warning">Before you processing any further, keep in mind that this will be the final state of your site. No more editting will be conducted on this site.</h2><div class="choices"><div class="row"><div class="col-xs-6"><input type="button" name="yes" value="yes"/></div><div class="col-xs-6"><input type="button" name="no" value="no"/></div></div></div></div></div>'
     };
 
     var data = {
@@ -28,6 +30,12 @@ var pageData = (function () {
     return {
         getTemplate: function () {
             return template.editContent;
+        },
+        getBrandContent: function() {
+            return template.brandContent;
+        },
+        getChoiceContent: function() {
+            return template.choiceContent;
         },
         menuOpen: false,
         collectionImageTarget: '',
@@ -99,6 +107,7 @@ var UICtrl = (function () {
         editBtn: '#edit-btn',
         editText: '#edit-text',
         editContainer: '#edit-container',
+        choices: '#edit-container .choices',
         picHolder : '.pics-holder',
         collection: '.collection',
         imageHolder: '.image-holder',
@@ -254,10 +263,11 @@ var controller = (function (data, UI) {
     // Handle all the class names I want to control
     var DOMString = UI.getDOMString();
 
-    function updateText() {
+    function updateText(ele) {
         content = $(DOMString.editText).val();
         // Remove event
         $(DOMString.editBtn).off('click');
+        $(DOMString.editText).off('keydown');
         // remove edit box
         UI.removeElement(DOMString.editContainer);
         // Add that text value to element target
@@ -276,11 +286,13 @@ var controller = (function (data, UI) {
             UI.addHTMLTemplate('body', template);
             $(DOMString.editText)[0].focus();
             // Add event to submit change
-            $(DOMString.editBtn).on('click', updateText);
+            $(DOMString.editBtn).on('click', function(){
+                updateText(ele);
+            });
             $(DOMString.editText).on('keydown', function (e) {
                 var x = e.keyCode;
                 if (x === 13) {
-                    updateText();
+                    updateText(ele);
                 }
             });
         }
@@ -522,21 +534,68 @@ var controller = (function (data, UI) {
         }, 500);
     }
 
+    // this get choice run to get user choice when a warning pops up
+    function getChoice(e) {
+        let choice = e.target.getAttribute('name');
+        if (choice.toUpperCase() === 'YES') {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    function removeEditingFeature() {
+        UI.removeElement(DOMString.sideMenu);
+        
+        // remove all the event in editing features
+        $(DOMString.socialEditor).off('focusout');
+        $(DOMString.socialEditor).off('keydown');
+        $(DOMString.socialEditor).off('focusin');
+        $(DOMString.socialEditor).off('click');
+        // add social media 
+        $(DOMString.socialIco).off('click');
+        
+         // menu
+        $(DOMString.edit).off('click');
+
+        // close btn
+        $(DOMString.closeBtn).off('click');
+    }
+    
+    // finalize will be invoked when user want to finalize their web page,
+    // which put their web page to the final state, no more editing.
     function finalize() {
         console.log('finalize is running...');
         let body = document.querySelector('body');
         let sideMenu = document.getElementById('side-menu');
         let edit = document.getElementById('edit');
+        let warningPopUp = data.getChoiceContent();
+        let brand = data.getBrandContent();
+        UI.addHTMLTemplate('body', warningPopUp);
         
-        html = '<div id="edit-container" class="container"><div class="text-holder"><h2>After finalizing this web page, no more editing will be able to conduct. Are you sure?</h2><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>';
-        
-        UI.addHTMLTemplate('body', html);
-        console.log(body, sideMenu);
-        /*
-        edit.textContent = brand;
-        closeMenu();
-        body.removeChild(sideMenu);
-        */
+        $(DOMString.choices).on('click', function(e) {
+           let choice = getChoice(e);
+            UI.removeElement(DOMString.editContainer);
+            if (choice == 1) {
+                $(DOMString.choices).off('click');
+                
+                UI.addHTMLTemplate('body', brand);
+                // Add event to submit change
+                $(DOMString.editBtn).on('click', function(){
+                updateText(edit);
+                });
+                $(DOMString.editText).on('keydown', function (e) {
+                var x = e.keyCode;
+                if (x === 13) {
+                updateText(edit);
+                }
+                closeMenu();
+                removeEditingFeature();
+                edit.id = 'brand-name';
+                edit.href="#";
+            });
+            }
+        });
     }
     // Handle all events happen in the DOM
     var eventHandler = (function () {
@@ -552,7 +611,6 @@ var controller = (function (data, UI) {
         // close btn
         $(DOMString.closeBtn).on('click', closeMenu);
 
-        // close background gallery
         // window onscroll to change background-color on navigation bar
         $(window).on('scroll', navigationCtrl);
 
@@ -560,7 +618,7 @@ var controller = (function (data, UI) {
         $(DOMString.main + ' ' + DOMString.navigations).on('click', navigationScroll);
         $(DOMString.mainBtn).on('click', navigationScroll);
         
-        // collection display on respectively name tag
+        // collection display on respectively name button
         $(DOMString.collection).on('click', UI.collectionDisplay);
 
         // background img select 
