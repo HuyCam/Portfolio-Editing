@@ -665,7 +665,39 @@ var controller = (function (data, UI) {
         UI.insertSocialIcon(data.createSocialEle(socialObj));
 
     }
-
+    
+    
+    
+    initIntro = (function() {
+        let instruction = ['<div class="text-holder"><h1>Instruction</h1></div><div class="content-holder"><div class="instruction"><p>Click "Edit" on the left right corner the edit the page</p><p>After the edit menu bar opens, you can make change to the text content on the page by double click on it</p><p>In the edit menu bar, there are options that you can change background images, background color, add social buttons, etc</p><p class="warning">After all the change you make, click finalize button. Keep in mind that after finalize the page, no more editing will be able to make on the page.</p></div></div></div>'];
+       
+        count = 0;
+        // introduction to the page
+     function nextIntro() {
+            let parentNode = document.querySelector('#edit-container .intro');
+            while (parentNode.firstChild) {
+                parentNode.removeChild(parentNode.firstChild);
+            }
+            
+         if (instruction[count]) {
+             console.log('adding instruction');
+             let content = document.querySelector('#edit-container .intro');
+             content.insertAdjacentHTML('afterbegin', instruction[count]);
+             count++;
+         } else {
+             let content = document.querySelector('#edit-container');
+             content.parentNode.removeChild(content);
+             $('#edit-container .choices input').off('click');
+         }      
+        }
+        
+        return {
+            onClickNext: function() {
+                 $('#edit-container .choices input').on('click', nextIntro);
+            }
+        };
+    })();
+    
     function startInterval() {
         interValCtr = setInterval(autoSlide, 3000);
     }
@@ -686,6 +718,9 @@ var controller = (function (data, UI) {
             addSocialLink('facebook');
             addSocialLink('twitter');
             addSocialLink('linkedin');
+            
+            // initial intro function
+            initIntro.onClickNext();
         }
     };
 })(pageData, UICtrl);

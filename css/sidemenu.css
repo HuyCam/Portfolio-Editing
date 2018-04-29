@@ -24,12 +24,24 @@
 #background-selector img:hover {
     border: 3px solid rgb(117, 214, 250);
 }
+
+#side-menu .edit {
+    border: 2px solid rgb(157, 157, 157);
+    border-radius: 5px;
+    padding: 0.5em 1em;
+}
+
+#side-menu .edit:hover {
+    background-color: rgb(55, 60, 68);
+    color: rgb(242, 241, 241);
+}
+
 #close-btn{
     display:inline;
     font-size: 24px;
     font-weight: bold;
     margin: 0;
-    color: #959595rgb(149, 149, 149);
+    color: rgb(149, 149, 149);
 }
 
 .close-btn-holder {
