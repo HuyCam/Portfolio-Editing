@@ -497,7 +497,9 @@ var controller = (function (data, UI) {
             $(DOMString.socialIco).on('click', handleAddSocial);
             /* end of modify social icon event */
             
-
+            // choose images from collection
+            $(DOMString.picHolder).on('click', imageCollectionSelect);
+            
             // set menuOpen to true indicates that menu is already open
             data.menuOpen = true;
         }
@@ -512,6 +514,9 @@ var controller = (function (data, UI) {
             // Remove event
             $(DOMString.main).off('dblclick');
             $(DOMString.socialEditor).off('focusout');
+            
+            // remove event that clicked on the image in the collections
+            $(DOMString.picHolder).off('click');
             // set menuOpen to false after closing
             data.menuOpen= false;
         }
@@ -618,7 +623,7 @@ var controller = (function (data, UI) {
         $(DOMString.main + ' ' + DOMString.navigations).on('click', navigationScroll);
         $(DOMString.mainBtn).on('click', navigationScroll);
         
-        // collection display on respectively name button
+        // collection display on respectively collection name button
         $(DOMString.collection).on('click', UI.collectionDisplay);
 
         // background img select 
@@ -632,8 +637,6 @@ var controller = (function (data, UI) {
             }
         };
         
-        // choose images from collection
-        $(DOMString.picHolder).on('click', imageCollectionSelect)
         
         // finalize the webpage
         $('#side-menu #edit-finalize button').on('click', finalize);
