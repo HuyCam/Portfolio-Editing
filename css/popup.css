@@ -62,6 +62,6 @@
 
 /* warning text */
 #edit-container .warning {
-    color: red !important;
+    color: rgb(238,130,147) !important;
     font-weight: bold;
 }

@@ -20,7 +20,8 @@ var pageData = (function () {
     var template = {
         editContent: '<div id="edit-container" class="container"><div class="text-holder"><h1>Edit Text</h1><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>',
         brandContent: '<div id="edit-container" class="container"><div class="text-holder"><h2>Enter Your Brand Name</h2><textarea name="" id="edit-text" class="form-control"></textarea><button id="edit-btn" class="btn btn-primary">Change</button></div></div>',
-        choiceContent: '<div id="edit-container" class="container"><div class="text-holder"><h2 class="warning">Before you processing any further, keep in mind that this will be the final state of your site. No more editting will be conducted on this site.</h2><div class="choices"><div class="row"><div class="col-xs-6"><input type="button" name="yes" value="yes"/></div><div class="col-xs-6"><input type="button" name="no" value="no"/></div></div></div></div></div>'
+        choiceContent: '<div id="edit-container" class="container"><div class="text-holder"><h2 class="warning">Before you processing any further, keep in mind that this will be the final state of your site. No more editting will be conducted on this site.</h2><div class="choices"><div class="row"><div class="col-xs-6"><input type="button" name="yes" value="yes"/></div><div class="col-xs-6"><input type="button" name="no" value="no"/></div></div></div></div></div>',
+        urlForm: '<form id="img-url-link"><h3>Image should have a ratio 1:1 to be neat on the page</h3><input type="text" placeholder="Paste Link here and hit enter when you ready"/></form>'
     };
 
     var data = {
@@ -36,6 +37,9 @@ var pageData = (function () {
         },
         getChoiceContent: function() {
             return template.choiceContent;
+        },
+        getUrlForm: function() {
+            return template.urlForm;
         },
         menuOpen: false,
         collectionImageTarget: '',
@@ -119,7 +123,8 @@ var UICtrl = (function () {
         mainPage: '.main-page',
         nav: 'nav',
         socialEditor: '#side-menu .available',
-        socialIco: '#side-menu .social-ico'
+        socialIco: '#side-menu .social-ico',
+        clientAvatar: '#client .avatar'
     };
 
     return {
@@ -258,6 +263,13 @@ var UICtrl = (function () {
         }
     };
 })();
+/*
+    This is the controller of the page.
+    pageData and UICtrl are passed to this controller
+    and name as 'data' and 'UI' as the local variable.
+    Most of the page active is start of from this controller.
+    It is the on that dispatch action.
+*/
 var controller = (function (data, UI) {
     var interValCtr;
     // Handle all the class names I want to control
@@ -315,7 +327,7 @@ var controller = (function (data, UI) {
     function backgroundGallery(e) {
         // get and display background images
         UI.backgroundImage(e);
-
+        
         // add Event Listener to background change
         $(DOMString.backgroundGallery).on('click', backgroundChange);
     }
@@ -437,6 +449,18 @@ var controller = (function (data, UI) {
         }
     } 
     
+    // handle url submited by user in the pop up of collection images
+    function urlSubmit(e, targetElement) {
+        e.preventDefault();
+        let form = e.target;
+        const inputValue = form.querySelector('input').value;
+        console.log(inputValue);
+        if (targetElement.getAttribute('src')) {
+            targetElement.setAttribute('src', inputValue);
+        }
+        UI.removeElement(DOMString.collectionImages);
+        
+    }
     function imageCollectionSelect(e) {
         let ele = e.target;
         let parent = ele.parentNode;
@@ -448,14 +472,26 @@ var controller = (function (data, UI) {
             let div = document.createElement('div');
             main.setAttribute('id', 'collection-images');
             div.setAttribute('class', 'image-box');
+            urlForm = data.getUrlForm();
             
-            //render all images
+            //fetching image data and render all images
             $.getJSON('data/collections.json').done(function (data) {
             data.forEach(function(cur) {
                let img = document.createElement('img');
                 img.setAttribute('src', cur.src);
                 div.appendChild(img);
+                
+                
             });
+                // render input form for user to input url as their choice
+                console.log('get url form: ');
+                UI.addHTMLTemplate('#collection-images', urlForm);
+                
+                // add a event catch the url user submit
+                document.getElementById('img-url-link').addEventListener('submit', function(e) {
+                    urlSubmit(e, ele);
+                });
+                
             }).fail(function () {
             console.log('Can not load collections.json');
             });
@@ -467,6 +503,8 @@ var controller = (function (data, UI) {
             // save the target
             data.collectionImageTarget = ele;
             
+            
+            
         } // if it is image in pop up window then change image source of event target
         else if (parent.className === 'image-box') {
             let newSRC = ele.getAttribute('src');
@@ -475,6 +513,16 @@ var controller = (function (data, UI) {
             data.collectionImageTarget = '';
         }
     }
+    
+    function handleEditAvatar(e) {
+        const ele = e.target;
+        const newSrc = prompt('Enter URL link to your customer avatar');
+        if (newSrc) {
+            ele.src = newSrc;
+        }
+    }
+    
+    // expand Side Menu of the page
     var expandMenu = function () {
         if (!data.menuOpen) {
             // Expend menu
@@ -497,7 +545,10 @@ var controller = (function (data, UI) {
             $(DOMString.socialIco).on('click', handleAddSocial);
             /* end of modify social icon event */
             
-            // choose images from collection
+            // add event to edit client avatar, event is taken off in closeMenu
+            $(DOMString.clientAvatar).on('click', handleEditAvatar);
+            
+            // choose images from collection 
             $(DOMString.picHolder).on('click', imageCollectionSelect);
             
             // set menuOpen to true indicates that menu is already open
@@ -514,6 +565,9 @@ var controller = (function (data, UI) {
             // Remove event
             $(DOMString.main).off('dblclick');
             $(DOMString.socialEditor).off('focusout');
+            
+            // remove change clientAvatar event
+            $(DOMString.clientAvatar).off('click');
             
             // remove event that clicked on the image in the collections
             $(DOMString.picHolder).off('click');
@@ -672,7 +726,7 @@ var controller = (function (data, UI) {
     
     
     initIntro = (function() {
-        let instruction = ['<div class="text-holder"><h1>Instruction</h1></div><div class="content-holder"><div class="instruction"><p>Click "Edit" on the left right corner the edit the page</p><p>After the edit menu bar opens, you can make change to the text content on the page by double click on it</p><p>In the edit menu bar, there are options that you can change background images, background color, add social buttons, etc</p><p class="warning">After all the change you make, click finalize button. Keep in mind that after finalize the page, no more editing will be able to make on the page.</p></div></div></div>'];
+        let instruction = ['<div class="text-holder"><h1>Instruction</h1></div><div class="content-holder"><div class="instruction"><p>Click "Edit" on the up left corner to edit the page</p><p>After the edit menu bar opens, you can make change to the text content on the page by double click on it</p><p>In the edit menu bar, there are options that you can change background images, background color, add social buttons, etc</p><p class="warning">After all the change you make, click finalize button. Keep in mind that after finalize the page, no more editing will be able to make on the page.</p></div></div></div>'];
        
         count = 0;
         // introduction to the page
@@ -697,7 +751,10 @@ var controller = (function (data, UI) {
         return {
             onClickNext: function() {
                  $('#edit-container .choices input').on('click', nextIntro);
-            }
+            },
+            nextIntro: function() {
+            nextIntro();
+        }
         };
     })();
     
@@ -724,6 +781,11 @@ var controller = (function (data, UI) {
             
             // initial intro function
             initIntro.onClickNext();
+            
+            // development purpose, delete after finishing
+            initIntro.nextIntro();
+            initIntro.nextIntro();
+            expandMenu();
         }
     };
 })(pageData, UICtrl);

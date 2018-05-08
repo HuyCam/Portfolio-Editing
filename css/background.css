@@ -32,6 +32,8 @@
 .editable {
     cursor: pointer;
 }
+
+/* collection images selection */
 #collection-images img {
     text-align: center;
     display: inline-block;
@@ -39,4 +41,18 @@
     clear: right;
     margin: 1em .2em 0 .2em;
     border-radius: 5%;
+}
+#collection-images form {
+    width: 50%;
+    margin: 0 auto;
+}
+#collection-images form input {
+    border: 1px solid rgb(117, 214, 250);
+    border-radius: 5px;
+    background-color: whitesmoke;
+    width: 100%;
+}
+
+#collection-images h3 {
+    color: white;
 }
