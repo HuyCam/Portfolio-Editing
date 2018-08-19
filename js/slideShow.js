@@ -782,10 +782,6 @@ var controller = (function (data, UI) {
             // initial intro function
             initIntro.onClickNext();
             
-            // development purpose, delete after finishing
-            initIntro.nextIntro();
-            initIntro.nextIntro();
-            expandMenu();
         }
     };
 })(pageData, UICtrl);
